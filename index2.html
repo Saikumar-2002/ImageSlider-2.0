@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ImageSlider!.0</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .slider-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .slider {
+      display: flex;
+      width: 900px;
+      overflow: hidden;
+    }
+    .slider-wrapper{
+        display: flex;
+    }
+
+    .slider-wrapper img {
+      width: 300px;
+      height: auto;
+      padding: 5px;
+    }
+    button {
+      font-size: 20px;
+     padding: 10px 25px;
+     border-radius: 8px;
+      cursor: pointer;
+      background-color: transparent;
+      outline: none;
+    }
+    button:hover {
+      background-color: black;
+      color: white;
+    }
+  </style>
+  <body>
+    <div  class="slider-container">
+      <button id="prevBtn">prev</button>
+      <div class="slider">
+        <div class="slider-wrapper">
+          <img
+            src="https://cdn.pixabay.com/photo/2024/03/30/21/24/ferris-wheel-8665568_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2024/09/17/11/19/real-estate-9053405_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2024/03/18/02/40/whooper-swans-8640045_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2023/12/15/18/07/bean-8451254_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2024/04/10/14/03/bathroom-8688132_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2023/02/07/19/53/mountains-7774999_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2023/05/25/10/35/bridge-8016809_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2024/09/22/09/39/pantheon-paris-9065570_1280.jpg"
+            alt=""
+          />
+          <img
+            src="https://cdn.pixabay.com/photo/2024/02/07/07/15/station-8558516_1280.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+      <button id="nextBtn">next</button>
+    </div>
+
+    <script>
+      let images = document.querySelector(".slider-wrapper ");
+      let prevBtn = document.getElementById("prevBtn");
+      let nextBtn = document.getElementById("nextBtn");
+
+      let index = 0;
+      let visibleImages = 1;
+      const imageWidth = 300;
+      const maxIndex =
+        document.querySelectorAll(".slider-wrapper img").length - visibleImages-1;
+        console.log(maxIndex)
+
+      function updateSlider() {
+        images.style.transform = `translateX(${-index * imageWidth}px)`;
+      }
+
+      prevBtn.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          updateSlider();
+        }
+      });
+      nextBtn.addEventListener("click", () => {
+        if (index < maxIndex) {
+          index++;
+          updateSlider();
+        }
+      });
+    </script>
+  </body>
+</html>
