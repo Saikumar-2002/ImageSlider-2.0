@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .slider-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .slider {
+            display: flex;
+            width: 900px;
+            overflow: hidden;
+        }
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slider-wrapper img {
+            width: 300px;
+            height: auto;
+            padding: 5px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: transparent;
+            outline: none;
+        }
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <button id="prevBtn">prev</button>
+        <div class="slider">
+            <div class="slider-wrapper" id="parent"></div>
+        </div>
+        <button id="nextBtn">next</button>
+    </div>
+
+    <script>
+        const parent = document.getElementById("parent");
+
+        fetch("data.json")
+            .then(res => res.json())
+            .then(pictures => {
+                // Populate images inside the slider
+                let data = "";
+                pictures.forEach(element => {
+                    data += `
+                        <img src="${element.img}" alt="Image" />
+                    `;
+                });
+                parent.innerHTML = data;
+
+                // Slider functionality
+                const sliderWrapper = document.querySelector(".slider-wrapper");
+                const prevBtn = document.getElementById("prevBtn");
+                const nextBtn = document.getElementById("nextBtn");
+
+                let index = 0;
+                const imageWidth = 300; // Width of a single image
+                const maxIndex = pictures.length - Math.floor(900 / imageWidth);
+
+                function updateSlider() {
+                    sliderWrapper.style.transform = `translateX(${-index * imageWidth}px)`;
+                }
+
+                prevBtn.addEventListener("click", () => {
+                    if (index > 0) {
+                        index--;
+                        updateSlider();
+                    }
+                });
+
+                nextBtn.addEventListener("click", () => {
+                    if (index < maxIndex) {
+                        index++;
+                        updateSlider();
+                    }
+                });
+            });
+    </script>
+</body>
+</html>
